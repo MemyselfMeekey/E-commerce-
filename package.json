@@ -3,10 +3,19 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+  "homepage": "https://github.com/MemyselfMeekey/api-23.git",
   "scripts": {
+    "start-dev": "nodemon index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
-  "author": "",
-  "license": "ISC"
+  "author": "Apurva Acharya",
+  "repository": {
+    "url": "https://github.com/MemyselfMeekey/api-23.git",
+    "type": "git"
+  },
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.18.2"
+  }
 }
