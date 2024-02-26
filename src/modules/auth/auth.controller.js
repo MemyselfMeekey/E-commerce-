@@ -11,20 +11,20 @@ class AuthController{
         
     }
     register=(req,res,next)=>{
-
-        try{
+    try{
         //params,query,body
         const data=req.body
           
         //validate using joi  
-        
-       
             
     }
     catch(exception){
         console.log(exception)
         next(exception)
     }
+    }
+
+    
     verifyRegisterToken=(req,res,next)=>{
 
     }
@@ -32,7 +32,7 @@ class AuthController{
 
     }
     forgetpassword=(req,res,next)=>{
-
+        
     }
     verifyForgetPasswordToken=(req,res,next)=>{
 
@@ -41,7 +41,7 @@ class AuthController{
 
     }
 
-}
+
 }
 const authCtrl=new AuthController()
 module.exports=authCtrl
