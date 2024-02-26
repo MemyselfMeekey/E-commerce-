@@ -1,3 +1,5 @@
+const joi=require("joi")
+
 class AuthController{
     login=(req,res,next)=>{
 
@@ -9,7 +11,19 @@ class AuthController{
         
     }
     register=(req,res,next)=>{
+
+        try{
+        //params,query,body
+        const data=req.body
+          
+        //validate using joi  
         
+       
+            
+    }
+    catch(exception){
+        console.log(exception)
+        next(exception)
     }
     verifyRegisterToken=(req,res,next)=>{
 
@@ -27,6 +41,7 @@ class AuthController{
 
     }
 
+}
 }
 const authCtrl=new AuthController()
 module.exports=authCtrl

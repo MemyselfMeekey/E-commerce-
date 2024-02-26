@@ -3,7 +3,13 @@ const express=require('express')//es5 module
 const app=express()
 const router=require("../routes/router")
 
-app.use('auth/v1/',router) 
+// body parser
+app.use(express.json())
+app.use(express.urlencoded({
+    extended:false
+}))
+
+app.use('/authv1',router) 
  //use is also a middleware also known as application level middleware
 
 app.use((res,req,next)=>{

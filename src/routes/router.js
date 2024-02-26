@@ -1,20 +1,14 @@
 const router=require('express').Router() //router obj used to define rouutes and middleware for a specific part of your application  //middleware
-
-// const loginCheck=require("../middleware/auth.middleware")//..goes two step back in folder
-
-const checkPermission = require('../middleware/rbac.middleware')
-
 const authRouter=require("../modules/auth/auth.router")
 const bannerRouter=require("../modules/banner/banner.router")
 const brandRouter=require("../modules/brand/brand.router") 
 const category=require("../modules/category/catrgory.router")
 
-router.use("/category",category)
-router.use("/brand",brandRouter)
-router.use("/banner",bannerRouter)
 //loading auth.router export on auth end point 
 router.use("/auth",authRouter)//loading external routers
-
+router.use("/banner",bannerRouter)
+router.use("/brand",brandRouter)
+router.use("/category",category)
 
 module.exports=router
 
