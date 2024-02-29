@@ -2,12 +2,14 @@ const router=require('express').Router()//express routing middleware
 
 const loginCheck=require("../../middleware/auth.middleware")//..goes two step back in folder
 
+const {uploader,pathSet}=require("../../middleware/uploader.middleware")
 const authCtrl=require("../auth/auth.controller")
 const {registerSchema}=require("../auth/auth.request")
 const validatebody=require("../../middleware/bodyvalidator.middleware")
 
 
-router.post("/register", validatebody(registerSchema), authCtrl.register);
+//uploader.none,single,array
+router.post("/register",pathSet("/uploads/user"),uploader.single("image"), validatebody(registerSchema), authCtrl.register);
 router.get("/verify-token/:token",authCtrl.verifyRegisterToken)
 router.get("/activate/:token",authCtrl.activateUser)
 

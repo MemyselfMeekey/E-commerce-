@@ -148,3 +148,29 @@ Auth Module
     get         /:slug/products     ---none---      category of products by brand slug
 
 # password lai- login garesi password * garni
+
+
+
+
+Body data 
+    ==>name, email, role
+        ===> Mappindg(Structuring the data recieved to store in DB)
+            ===> generate token ====>for activation process i.e. OTP
+                ==> validate
+                    ==> Password Entry
+                        ==> User account attach (token or otp===>invalid)
+Email Service/ SMS service or GMS service(twilio,awa sns),api call in nepal
+---->we use fake smtp server configuration
+    host value, usernama value, tls, port
+            NPM INSTALL NODE MAILER
+
+## Socket sserver
+-----       ------       -----          ------
+clients     clients     clients         clients
+
+//severv bhitra event hru huna sakcha jun chai backrgound ma run huncha
+
+
+node events
+    emitter==> emit
+    listener==> listen

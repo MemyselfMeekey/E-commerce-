@@ -2,10 +2,16 @@ const express=require('express')//es5 module
 
 const app=express()
 const router=require("../routes/router")
+const event=require("events")
+const myEvent=new event.EventEmitter()
 
+myEvent.emit("name",{})
+myEvent.addListener("name",(data)=>{
+    console.log(data)
+})
 // body parser
-app.use(express.json())
-app.use(express.urlencoded({
+app.use(express.json())//json body phrases
+app.use(express.urlencoded({//x-www-form-urlencoded
     extended:false
 }))
 
