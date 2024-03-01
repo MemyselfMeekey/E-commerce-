@@ -20,13 +20,12 @@ class AuthController{
         //    const timestamp=Date.now()//number=1979-01-01
         //    timestamp+=3*60*60*1000
         //    date=new Date(timestamp)
+        const myEvent= req.myEvent
+        myEvent.emit('sendRegisterMail',data)
 
-         await authSvc.sendRegisterEmail(data)
-        res.json({
-            result:mailSend,
-            message:"YOUR ACCOUNT HAS BEEN CREATED SUCCESFULLY"
-            
-        })
+        //  await authSvc.sendRegisterEmail(data)
+        //events
+        //--events, polling,
         //validate using joi  
         //file upload--/req.file /req.files
     }

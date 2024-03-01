@@ -2,13 +2,17 @@ const express=require('express')//es5 module
 
 const app=express()
 const router=require("../routes/router")
-const event=require("events")
-const myEvent=new event.EventEmitter()
+const myEvent=require("../events/event.config")
 
-myEvent.emit("name",{})
-myEvent.addListener("name",(data)=>{
-    console.log(data)
+
+app.use((req,res,next)=>{
+    req.myEvent= myEvent
+    next()
 })
+
+app.use("/images",express.static('./public/uploads'))
+app.use("/users",express.static('./public/uploads/user'))
+
 // body parser
 app.use(express.json())//json body phrases
 app.use(express.urlencoded({//x-www-form-urlencoded

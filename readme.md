@@ -173,4 +173,24 @@ clients     clients     clients         clients
 
 node events
     emitter==> emit
-    listener==> listen
+    listener==> 
+    
+## database server
+    -stack
+    -client
+    -cost
+    -project
+
+    2 type
+    a. Relational database Management system
+        --mySql, msSql, Oracle, etc
+    b. non-Relationaldatabase Management system
+        --mongodb,couchdb,etc
+
+        --mongodb server
+            -local setup
+            - cloud hosting(free upto 512 MB storage) atlas
+
+        a. mongodb server(community edition)
+        b. mongodb shell(mongosh shell service)// optional
+        c. mongodb compass(GUI based application)//optional
