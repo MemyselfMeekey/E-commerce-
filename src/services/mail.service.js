@@ -38,4 +38,4 @@ class MailService{
         }
     }
 }
-module.exports=new MailService()
+    module.exports=new MailService()

@@ -194,3 +194,113 @@ node events
         a. mongodb server(community edition)
         b. mongodb shell(mongosh shell service)// optional
         c. mongodb compass(GUI based application)//optional
+username: meekey17
+pass:UWYnH6PO1omDWrlI
+
+server run garnalai
+protocol-mongodb if localhost, mongodb+srv for server
+host -localhost,127.0.0.1, or atlas
+port- 27017
+user-not required, atlas-dbusername
+password-not required, atlas-dbusernamepassword
+dbname-<your db name>
+
+URL: protocol://username:password@host:port/dbName?options
+eg:
+    mongodb:///127.0.0.1:27017/
+DB:
+ ->CREATE AND USE IT 
+  -> Data operation
+    -CRUD operation
+
+COLLECTION (Table)
+    -create 
+        =>.insertOne()
+        =>.insertMany([objects])
+    -Read
+        =>.find(filter,projection)
+        =>.find1(filter,projection)
+
+        filter is a condition
+        -->datatype is an object data
+            {key:value,key1:Value}
+             -->...where key=value and key1=balue1
+             {$op:[{}]}
+            operate or{$or:[{key:value},{key1:value1}]}
+                =>...where key-value or key1=value1
+                {$and=[{key:value},{key1:value1}]}
+
+                {key:{$op:value}}
+                eg:
+                {age:{$gte:18}}
+                ==>..where age>=18  
+            mongodb
+                $gt,$gte,$lt,$lte,$and and etc for more go to
+
+            ==>Update
+            ->.updateOne(filter,updatebody,options)
+            ->.updateMany(filter,updatebody,options)
+
+            ==>delete
+            -->.deleteOne(filter)
+            -->.deleteMany(filter)
+
+MONGOOSE-->ORM-->Object Relation Mapper
+
+    DB physical
+    Table                                           Codes
+    Name:plural and in small letter             Model:name==>singular form of table name
+    eg user                    ===============> Model Name:User
+Column Name:                    ==============> Model Property
+e.g
+    users->email,name            =============>user->Property->name,email
+    Every row represents an instance of a model class
+
+    mongodb ====>MONGOOSE
+    sql(postgres, mySql)===>sequalize, typeorm, prisma
+
+   -Authorizaton and Authentication
+        --entity-->data users dara=>user entity
+        -user Management
+            -crud=>user entity
+        -categorized products
+            crud=product entity
+        -Category Management
+            -category entity
+        -Brand Management
+            -brand entity
+        -User Management
+            -user Managemententity
+        -Order Management
+            -order entity
+
+USER entity
+        ---enum Userrole{
+  amdin
+  seller
+  customer
+}
+enum userstatus{
+  active
+  inactive
+}
+table users{
+  _id objectId [primary key]
+  name string 
+  email string [unique]
+  role Userrole [default: 'customer']
+  password string
+  activationtoken string
+  expirydate datetime
+  status userstatus [default: 'inactive']
+  forgetToken string
+  address json
+  createdby string [ref: -users._id]
+  updateBy objectId [ref: -users._id]
+}
+
+entity banner   
+    title
+    image
+    url
+    status--> active,inactive

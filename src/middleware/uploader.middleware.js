@@ -3,12 +3,12 @@ const multer=require('multer')
 const fs=require("fs")
 const {generateRandomString}=require("../config/helpers")
 const path = require('path')
-const myStorage= multer.diskStorage({
+const myStorage= multer.diskStorage({//where to store files and upload them
     destination:(req,file,cb)=>{
-        cb(null,req.uploadPath)
+        cb(null,req.uploadPath)//req.uploadPath used to set the destination directory
 
     },
-    filename:(req,file,cb)=>{
+    filename:(req,file,cb)=>{//this is used to give uploaded file a unique name 
         //name.ext
         const ext=file.originalname.split(".").pop()
         const filename=Date.now()+"-"+generateRandomString(15)+"."+ext//1970-01-01

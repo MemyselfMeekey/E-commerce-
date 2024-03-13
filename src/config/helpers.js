@@ -7,9 +7,10 @@
         //Math.random()=>(0,1)*63=>(0,63)
         //ceil==10.001=>11
         //floor==10.001=>10
-        const position=Math.ceil(Math.random*(length-1))//10,15,1
+        const position=Math.ceil(Math.random()*(length-1))//10,15,1
         randomStr+=chars[position]//_d0
     }
+   
     return randomStr
 }
 module.exports={generateRandomString}
