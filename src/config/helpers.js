@@ -1,3 +1,4 @@
+    const fs=require("fs")
     const generateRandomString=(len=100)=>{
     const chars="0123456789_-abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
     const length=chars.length
@@ -13,4 +14,10 @@
    
     return randomStr
 }
-module.exports={generateRandomString}
+
+const deleteFile=(path)=>{
+    if(fs.existsSync(+path)){
+        fs.unlinkSync(path)
+    }
+}
+module.exports={generateRandomString,deleteFile}
