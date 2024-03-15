@@ -304,3 +304,24 @@ entity banner
     image
     url
     status--> active,inactive
+
+entity brand
+    title or name
+    slug
+    logo or image
+    status->inactive and active
+    show in home tab==>boolean
+
+Category
+    name
+    slug
+    status
+    ShowInHome
+    parentId ==>in mongoose when making datatype mongoose.types.objectId, ref:"Category",default:null
+    image
+
+_id     name    slug    status  ShowInHome  parentId    image
+1.       electronics     active  true        null        null
+2.      television      active  true        1           null3
+3.      smart television active false       2           null
+ 

@@ -117,7 +117,9 @@ class AuthController{
         //    timestamp+=3*60*60*1000
         //    date=new Date(timestamp)
         //todo:data store
+       
         const user=await authSvc.storeUser(data)//data will store email,name ,phone etc
+       
         if (user){
         const myEvent= req.myEvent
         myEvent.emit('sendRegisterMail',user)
