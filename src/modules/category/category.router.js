@@ -7,6 +7,7 @@ const {pathSet,uploader}=require("../../middleware/uploader.middleware")
 const validateBody=require("../../middleware/bodyvalidator.middleware")
 const { CatCreateDto,CatUpdateDto } = require("./category.request")
 
+// router.get("/menu",catCtrol.listforhome)
 router.post('/',loginCheck,checkPermission('admin'),pathSet('/uploads/cat'),uploader.single('image'),validateBody(CatCreateDto),catCtrol.create)
 
 router.get('/',loginCheck,checkPermission('admin'),catCtrol.index)

@@ -123,7 +123,11 @@ class AuthController{
         if (user){
         const myEvent= req.myEvent
         myEvent.emit('sendRegisterMail',user)
-
+        res.json({
+            result:myEvent,
+            message:"Result has been sent",
+            meta:null
+        })
         //  await authSvc.sendRegisterEmail(data)
         //events
         //--events, polling,

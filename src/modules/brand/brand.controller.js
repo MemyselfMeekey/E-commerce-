@@ -46,9 +46,17 @@ class BrandController {
     }
     create = async (req, res, next) => {
         try {
-            console.log(req.authUser)
-            const payload = brandSvc.transformCreateObject(req.body, req.authUser._id)
-            const brand = await brandSvc.createBanner(payload)
+         
+            const payload =brandSvc.transformCreateObject(req.body, req.authUser._id)
+
+            const brand = await brandSvc.createBrand(payload)
+            res.json({
+                result:{
+                    payload
+                },
+                message:"This is created successfully",
+                meta:null
+            })
         }
         catch (exception) {
             console.log(exception)
@@ -79,6 +87,7 @@ class BrandController {
     }
     update = async (req, res, next) => {
         try {
+            
             const banner = await brandSvc.getDataById(req.params.id)
             if (!banner) {
                 throw new AppError({ message: "brand Doesnot exist", code: 400 })
@@ -93,7 +102,7 @@ class BrandController {
                 deleteFile('./public/uploads/brand/'+updatedData.image)
             }
             res.json({
-                result: updatedData,
+                result: payload,
                 message: "brand Updated Successfully",
                 meta: null
             })

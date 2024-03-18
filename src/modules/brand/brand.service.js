@@ -3,22 +3,22 @@ const BrandModel= require("./brand.model")
 const slugify=require("slugify")
 class BrandService{
     transformCreateObject=(data, authUserId)=>{
+        
         const formattedData={
             ...data
         }
         //slug
-        formattedData.slug=slugify(data.name,{lower:true})
+        formattedData.slug=slugify(data.name,{lower:true})//string dtaa bata slug banauna milcha slugify bata
         if(data.image){
             formattedData.image=formattedData.image.filename
         }
         else{
             data.image=null
         }
-        
         formattedData.createdBy=authUserId
         return formattedData
     }
-    transformUpdateObject=(data,oldBanner,authUserId)=>{
+    transformUpdateObject=(data,oldBrand,authUserId)=>{
         let formattedData={
             ...data
         }

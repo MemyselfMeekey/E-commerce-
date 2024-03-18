@@ -12,9 +12,11 @@ class CategoryService{
             formattedData.image=formattedData.image.filename
         }
         else{
-            data.image=null
+            formattedData.image=null
         }
-        
+        if(data.parentId==="null"||data.parentId===null||data.parentId===''){
+            formattedData.parentId=null
+        }
         formattedData.createdBy=authUserId
         return formattedData
     }
@@ -31,7 +33,7 @@ class CategoryService{
         formattedData.updatedBy=authUserId
         return formattedData
     }
-    createBrand=async(data)=>{
+    createCat=async(data)=>{
         try{
             const brand=new BrandModel(data)
             return await brand.save()
@@ -52,7 +54,8 @@ class CategoryService{
     getDataById=async(id)=>{
         try{
             const data=await BrandModel.findById(id)
-            .populate('createdBy',['_id','name','email'])//
+            .populate('createdBy',['_id','name','email'])
+            .populate('parentId',['_id',"name",'slug'])
             return data
         }
         catch(exception){

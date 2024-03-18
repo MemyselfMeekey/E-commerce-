@@ -9,15 +9,15 @@ const { BrandCreateDto,BrandUpdateDto } = require("./brand.request")
 
 router.post('/',loginCheck,checkPermission('admin'),pathSet('/uploads/brand'),uploader.single('image'),validateBody(BrandCreateDto),brandCtrol.create)
 
-router.get('/',loginCheck,checkPermission('admin'),brandCtrol.index)
+router.get('/',loginCheck,checkPermission('admin','seller'),brandCtrol.index)
 
 
-router.get("/:id",loginCheck,checkPermission('admin'),brandCtrol.view)
+router.get("/:id",loginCheck,checkPermission('admin','seller'),brandCtrol.view)
 router.put("/:id",loginCheck,checkPermission('admin'),pathSet('/uploads/banner'),uploader.single('image'),validateBody(BrandUpdateDto),brandCtrol.update)
 router.delete("/:id",loginCheck,checkPermission('admin'),brandCtrol.delete)
 
 router.get("/home/list",loginCheck,checkPermission('admin'),brandCtrol.listforhome)
-router.get("/:slug/byslug",brandCtrol.dataBySlug)
+router.get("/:slug/by-slug",brandCtrol.dataBySlug)
 
 
 module.exports=router

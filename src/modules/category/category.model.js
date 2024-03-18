@@ -1,5 +1,5 @@
 const mongoose=require("mongoose")
-const BrandSchema=new mongoose.Schema({
+const CatSchema=new mongoose.Schema({
     name:{
         type:String,
         required:true,
@@ -16,7 +16,16 @@ const BrandSchema=new mongoose.Schema({
         enum:['active','inactive'],
         default:"inactive"
     },
+    parentId:{
+        type:mongoose.Types.ObjectId,
+        ref:"Category",
+        default:null
+    },
     showInHome:{
+        type:Boolean,
+        default:false,
+    },
+    showInMenu:{
         type:Boolean,
         default:false,
     },
@@ -35,5 +44,5 @@ const BrandSchema=new mongoose.Schema({
     autoCreate:true,
     autoIndex:true,
 })
-const BrandModel=mongoose.model("brand",BrandSchema)
-module.exports=BrandModel
+const CatModel=mongoose.model("Category",CatSchema)
+module.exports=CatModel

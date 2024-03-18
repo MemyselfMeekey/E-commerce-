@@ -12,12 +12,12 @@ class CategoryController {
                 throw new AppError({ message: "Page numebr should begin frm 1", code: 400 })
             }
             const offset = (page - 1) * limit
-            const filter = {}
+            let filter = {}
             //authv1/banner?page=1&limit=15&seach=banner
             if (req.query.search) {
                 filter = {
                     $or: [
-                        { title: new RegExp(req.query.search, 'i') },
+                        { name: new RegExp(req.query.search, 'i') },
                         { status: new RegExp(req.query.search, 'i') }
                     ]
                 }
@@ -48,7 +48,7 @@ class CategoryController {
         try {
             console.log(req.authUser)
             const payload = catSvc.transformCreateObject(req.body, req.authUser._id)
-            const brand = await catSvc.createBanner(payload)
+            const brand = await catSvc.createCat(payload)
         }
         catch (exception) {
             console.log(exception)
@@ -129,7 +129,7 @@ class CategoryController {
         try{
             const brandList=await catSvc.getDataByFilter({
                 offset:0,
-                limit: (+req.query.limit || 2),
+                limit: (+req.query.limit || 5),
                 filter:{
                     status:"active",
                     showInHome:true
@@ -150,7 +150,7 @@ class CategoryController {
     dataBySlug=async(req,res,next)=>{
         try{
             const slug=req.params.slug
-            const brandDetail=await catSvc.getDataByFilter({
+            const catDetail=await catSvc.getDataByFilter({
                 offset:0,
                 limit:1,
                 filter:{
@@ -160,7 +160,7 @@ class CategoryController {
             })
             res.json({
                 result:{
-                    brand:brandDetail[0],
+                    brand:catDetail[0],
                     product:null
                 },
                 message:"data by slug",

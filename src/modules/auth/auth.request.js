@@ -3,7 +3,7 @@ const emailSchema=Joi.string().email().required()
 const registerSchema=Joi.object({
     name:Joi.string().min(2).max(50).required(),
     email:emailSchema,
-    role:Joi.string().pattern(/^(admin|seller|customer)$/).default("customer"),//pattern or valid
+    role:Joi.string().pattern(/^(seller|customer)$/).default("customer"),//pattern or valid
     phone:Joi.string().min(10).required(),
     image:Joi.object().required()
 })  
@@ -34,5 +34,6 @@ module.exports={
    passwordSetSchema,
    loginDto,
    passwordChangeSchema,
-   forgetPassword
+   forgetPassword,
+   emailSchema
 }
