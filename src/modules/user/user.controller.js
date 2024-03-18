@@ -52,6 +52,8 @@ class UserController{
             if (req.query.search) {
                 filter = {
                     ...filter,
+                    deletedAt:{$eq:null},
+                    deletedBy:{$eq:null},
                     $or: [
                         { name: new RegExp(req.query.search, 'i') },
                         { status: new RegExp(req.query.search, 'i') }
@@ -71,6 +73,63 @@ class UserController{
             }
         })
     }
+        catch(exception){
+            next(exception)
+        }
+    }
+    getDetail=async(req,res,next)=>{
+        try{
+            const userId=req.params.userId
+            const  userDetail=await userSvc.getSingleUser({_id:userId})
+            if(!userDetail){
+                throw new AppError({message:"User not found", code:400})
+            }
+            
+            res.json({
+                result:userDetail,
+                message:"This is user detail",
+                meta:null
+            })
+        }
+        catch(exception){
+            next(exception)
+        }
+    }
+    updateUser=async(req,res,next)=>{
+        try{
+            const userId=req.params.userId
+            const userDetail=await userSvc.getSingleUser({_id:userId})
+            if(!userDetail){
+                throw new AppError({message:"This is an error in updateuser"})
+            }
+            const data=userSvc.transformUpdateData(userDetail,req.body,req.authUser._id)
+            const update=await authSvc.updateUser(userId,req.body)
+            res.json({
+                result:update,
+                message:"User updated successfully"
+            })
+        }
+        catch(exception){
+            next(exception)
+        }
+    }
+    deleteById=async(req,res,next)=>{
+        try{
+            const userId=req.params.userId
+        const  userDetail=await userSvc.getSingleUser({_id:userId})
+            if(!userDetail){
+                throw new AppError({message:"User not found", code:400})
+            }
+            const update=await authSvc.updateUser(userId,{
+                deletedAt:new Date(),
+                deletedBy:req.authUser._id
+            })
+            res.json({
+                result:userDetail,
+                message:"This is user detail",
+                meta:null
+            })
+        }
         catch(exception){
             next(exception)
         }

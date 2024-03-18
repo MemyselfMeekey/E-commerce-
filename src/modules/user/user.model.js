@@ -36,6 +36,7 @@ const UserSchemaDef=new mongoose.Schema({
         enum:['active','inactive'],
         default:"inactive"
     },
+    image:String,
 
     forgetToken:String,
 
@@ -53,6 +54,15 @@ const UserSchemaDef=new mongoose.Schema({
         type:mongoose.Types.ObjectId,
         ref:"User",
         default:null,
+    },
+    deletedBy:{
+        type:mongoose.Types.ObjectId,
+        ref:"User",
+        default:null,
+    },
+    deletedAt:{
+       type:Date,
+       default:null 
     }
 
 },{

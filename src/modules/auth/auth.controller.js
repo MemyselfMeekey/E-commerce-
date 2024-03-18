@@ -179,7 +179,9 @@ class AuthController{
         try{
                 const email=req.body.email
                 const user=await authSvc.getSingleUserByFilter({
-                    email:email
+                    email:email,
+                    deletedAt:{$eq:null},
+                    deletedBy:{$eq:null},
                 })
                 if(!user){
                     throw new AppError({message:"User has not been registered yet"})
@@ -251,7 +253,9 @@ class AuthController{
         try{
             const email=req.body.email
             const userDetail=await authSvc.getSingleUserByFilter({
-                email:email
+                email:email,
+                deletedAt:{$eq:null},
+                    deletedBy:{$eq:null},
             })
             if(!userDetail){
                 throw new AppError({message:"USER has not been registered yet",status:400})
