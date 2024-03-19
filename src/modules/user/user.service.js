@@ -3,8 +3,9 @@ class UserService{
     transformUpdateData=(existingUser,updateBody)=>{
         const data={...updateBody}
         if(updateBody.image){
-            data
+            data.image = updateBody.image.filename;
         }
+        return data;
     }
     getCount=async(filter)=>{
         try{

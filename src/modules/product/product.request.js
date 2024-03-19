@@ -1,0 +1,39 @@
+const Joi=require("joi")
+const ProCreateDto=Joi.object({
+    name:Joi.string().min(2).required(),
+    description:Joi.string().allow(null,''),
+    categories:Joi.array().items(Joi.string()).allow(null),
+    brand:Joi.string().allow(null,''),
+    price:Joi.number().min(1).required(),
+    discount:Joi.number().min(0).max(100).default(0).allow(null,'',0),
+    seller:Joi.string().allow(null,''),
+    tags:Joi.array().items(Joi.string()).allow(null,''),
+    attributes:Joi.array().items(Joi.object({
+        key:Joi.string(),
+        value:Joi.array().items(Joi.string()),
+    })).allow(null,''),
+    status:Joi.string().pattern(/^(active|inactive)$/).default('inactive'),
+    images:Joi.array().items(Joi.object()).allow(null,''),
+    showInHome:Joi.boolean().default(false),
+})
+const ProUpdateDto=Joi.object({
+    name:Joi.string().min(2).required(),
+    description:Joi.string().allow(null,''),
+    categories:Joi.array().items(Joi.string()).allow(null),
+    brand:Joi.string().allow(null,''),
+    price:Joi.number().min(1).required(),
+    seller:Joi.string().allow(null,''),
+    discount:Joi.number().min(0).max(100).default(0).allow(null,'',0),
+    tags:Joi.array().items(Joi.string()).allow(null,''),
+    attributes:Joi.array().items(Joi.object({
+        key:Joi.string(),
+        value:Joi.array().items(Joi.string()),
+    })).allow(null,''),
+    status:Joi.string().pattern(/^(active|inactive)$/).default('inactive'),
+    images:Joi.array().items(Joi.object()).allow(null,''),
+    showInHome:Joi.boolean().default(false),
+})
+module.exports={
+    ProCreateDto,
+    ProUpdateDto
+}

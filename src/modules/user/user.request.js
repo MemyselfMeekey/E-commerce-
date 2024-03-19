@@ -5,7 +5,7 @@ const userCreateDto = Joi.object({
     email: emailSchema,
     role: Joi.string().pattern(/^(admin|seller|customer)$/).default("customer"),//pattern or valid
     phone: Joi.string().min(10).required(),
-    image: Joi.object().required(),
+    image: Joi.string().required(),
     address: Joi.object({
         shippingAddress:Joi.object ({
             state: Joi.string().pattern(/^(Koshi|Madesh|Sudurpaschim|Lumbini|Gandaki|Bagmati|Karnali)$/),
@@ -25,10 +25,9 @@ const userCreateDto = Joi.object({
 })
 const userUpdateDto = Joi.object({
     name: Joi.string().min(2).max(50).required(),
-    email: emailSchema,
     role: Joi.string().pattern(/^(admin|seller|customer)$/).default("customer"),//pattern or valid
     phone: Joi.string().min(10).required(),
-    image: Joi.object().required(),
+    image: Joi.string().required(),
     status:Joi.string().pattern(/^(active,inactive)$/).default("inactive"),
     address: Joi.object({
         shippingAddress:Joi.object ({

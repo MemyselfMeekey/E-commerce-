@@ -78,7 +78,9 @@ class AuthService{
     storeUser=async(data)=>{
         try{
             // const user=UserModel.insertOne(data)
+           
             const user= new UserModel(data)
+          
            return await user.save()//promise return garcha//this runs insert and update 
         }
         catch(exception){

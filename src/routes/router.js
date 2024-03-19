@@ -3,6 +3,7 @@ const authRouter=require("../modules/auth/auth.router")
 const bannerRouter=require("../modules/banner/banner.router")
 const brandRouter=require("../modules/brand/brand.router") 
 const userRouter=require("../modules/user/user.router")
+const product=require("../modules/product/product.router")
 const category=require("../modules/category/category.router")
 
 //loading auth.router export on auth end point 
@@ -10,6 +11,7 @@ router.use("/auth",authRouter)//loading external routers
 router.use("/banner",bannerRouter)
 router.use("/brand",brandRouter)
 router.use("/category",category)
+router.use("/product",product)
 router.use("/user",userRouter)
 
 module.exports=router

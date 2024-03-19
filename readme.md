@@ -325,3 +325,26 @@ _id     name    slug    status  ShowInHome  parentId    image
 2.      television      active  true        1           null3
 3.      smart television active false       2           null
  
+product
+    -name
+    -slug
+    -discription
+    -category[]
+    -brand
+    -price
+    -discount
+    -seller
+    -status
+    -images
+    -tags[]
+    -attributes
+        [{
+            key:'color';
+            value:['red','black']
+        }]
+        {
+            key:'size',
+            value:["S","m"]
+        }
+    -sku
+    -stock

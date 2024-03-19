@@ -4,9 +4,15 @@ const validateBody=(schema)=>{
             const data=req.body
            
             if(req.files){
+                let images=[]
+                let fieldName=""
                 Object.keys(req.files).map((fileField)=>{
-                    data[fileField]=req.files[fileField]
-            })
+                    // data[fileField]=req.files[fileField]
+                    const image=req.files[index]
+                    images.push(image)
+                    fieldName=image.fieldname
+                })
+                data[fieldName]=images
             }else if(req.file){
                 data[req.file.fieldname]=req.file
             }
