@@ -7,9 +7,9 @@ const ProSchema=new mongoose.Schema({
         min:2,
     },
     slug:{type:String, required:true, unique:true},
-    category:[{
+    categories:[{
         type:mongoose.Types.ObjectId,
-        ref:"category",
+        ref:"Category",
         default:null
     }],
     description:String,

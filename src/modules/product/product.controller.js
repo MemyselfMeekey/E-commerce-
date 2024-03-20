@@ -1,6 +1,7 @@
 const catSvc = require("./product.service")
 const AppError = require("../../exception/app.exception")
 const { deleteFile } = require("../../config/helpers")
+const ProSvc = require("./product.service")
 
 class CategoryController {
     index = async (req, res, next) => {
@@ -36,8 +37,8 @@ class CategoryController {
             //per page 15=>1st page=>1-15
             //2nd page=>id=>16-30
             //search operation
-            const count = await catSvc.getTotalCount(filter)
-            const data = await catSvc.getDataByFilter({ offset, filter, limit })
+            const count = await ProSvc.getTotalCount(filter)
+            const data = await ProSvc.getDataByFilter({ offset, filter, limit })
             res.json({
                 result: data,
                 message: "Producter Fetched",
@@ -54,9 +55,16 @@ class CategoryController {
     }
     create = async (req, res, next) => {
         try {
-            console.log(req.authUser)
-            const payload = catSvc.transformCreateObject(req.body, req.authUser._id)
-            const brand = await catSvc.createCat(payload)
+            const payload = ProSvc.transformCreateObject(req.body, req.authUser._id)
+            const brand = await ProSvc.createPro(payload)
+            res.json({
+                result:{
+                    payload:payload,
+                    brand:brand
+                },
+                message:"Prooduct is fetched",
+                meta:null
+            })
         }
         catch (exception) {
             console.log(exception)
@@ -87,12 +95,12 @@ class CategoryController {
     }
     update = async (req, res, next) => {
         try {
-            const product = await catSvc.getDataById(req.params.id)
+            const product = await ProSvc.getDataById(req.params.id)
             if (!product) {
                 throw new AppError({ message: "product Doesnot exist", code: 400 })
             }
-            const payload = catSvc.transformUpdateObject(req.body, product, req.authUser._id)
-            const updatedData = await catSvc.updateData(product._id, payload)
+            const payload = ProSvc.transformUpdateObject(req.body, product, req.authUser._id)
+            const updatedData = await ProSvc.updateData(product._id, payload)
             if (!updatedData) {
                 throw new AppError({ message: "product cannot update", code: 400 })
             }
@@ -113,12 +121,12 @@ class CategoryController {
     }
     delete = async(req, res, next) => {
         try{
-            const product=await catSvc.getDataById(req.params.id)
+            const product=await ProSvc.getDataById(req.params.id)
             if(!product){
                 throw new AppError({message:"product does not exists",code:400})
             }
-            const deletedProduct=await catSvc.deleteById(product._id)
-            if(deletedProduct.images.length){
+            const deletedProduct=await ProSvc.deleteById(product._id)
+            if(deletedProduct.image.length){
                 
                 deleteFile('./public/uploads/product'+deletedProduct.image)
             }
@@ -136,19 +144,51 @@ class CategoryController {
     }
     listforhome = async(req, res, next) => {
         try{
-            const brandList=await catSvc.getDataByFilter({
-                offset:0,
-                limit: (+req.query.limit || 5),
-                filter:{
-                    status:"active",
-                    showInHome:true
+            //authv1/banner?page=1&limit=15
+            const page = +req.query.page || 1
+            const limit = +req.query.limit || 20
+            if (page <= 0 || limit <= 0) {
+                throw new AppError({ message: "Page numebr should begin frm 1", code: 400 })
+            }
+            const offset = (page - 1) * limit
+            let filter = {
+                status:'active',
+                showInHome:true
+            }
+            //authv1/banner?page=1&limit=15&seach=banner
+            if (req.query.search) {
+                filter = {
+                    ...filter,
+                    $or: [
+                        { name: new RegExp(req.query.search, 'i') },
+                        { description: new RegExp(req.query.search, 'i') },
+                        { price: new RegExp(req.query.search, 'i') },
+                        { status: new RegExp(req.query.search, 'i') }
+                    ]
                 }
 
-            })
+            }
+            if(req.authUser.role==='seller'){
+                filter={
+                    ...filter,
+                    seller:req.authUser._id
+                }
+            }
+            //pagination
+            //1-100
+            //per page 15=>1st page=>1-15
+            //2nd page=>id=>16-30
+            //search operation
+            const count = await ProSvc.getTotalCount(filter)
+            const data = await ProSvc.getDataByFilter({offset,filter,limit })
             res.json({
-                result:brandList,
-                message:"Product for homepage",
-                meta:null
+                result: data,
+                message: "Producter Fetched",
+                meta: {
+                    page: page,
+                    limit: limit,
+                    count: count
+                }
             })
         }
         catch(exception){
@@ -159,18 +199,26 @@ class CategoryController {
     dataBySlug=async(req,res,next)=>{
         try{
             const slug=req.params.slug
-            const catDetail=await catSvc.getDataByFilter({
-                offset:0,
-                limit:1,
-                filter:{
+            const proDetail=await ProSvc.getDataByFilter({
+                
                     slug:slug,
                     status:"active"
-                }
+                
+            })
+            const realtedProduct=await ProSvc.getDataByFilter({
+                offset:0,
+                limit:5,
+                filter:{
+                    slug:{$ne:slug},
+                    $or:[
+                {categories:proDetail.categories},
+                {brand:proDetail.brand}
+                ]}
             })
             res.json({
                 result:{
-                    Product:catDetail[0],
-                    product:null
+                    Product:proDetail,
+                    realtedProduct:realtedProduct
                 },
                 message:"data by slug",
                 meta:null

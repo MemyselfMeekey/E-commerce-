@@ -94,12 +94,14 @@ class UserController {
     }
     updateUser = async (req, res, next) => {
         try {
+          
             const userId = req.params.userId
             const userDetail = await userSvc.getSingleUser({ _id: userId })
             if (!userDetail) {
                 throw new AppError({ message: "This is an error in updateuser" })
             }
             const data = userSvc.transformUpdateData(userDetail, req.body, req.authUser._id)
+          
             const update = await authSvc.updateUser(userId, data)
             res.json({
                 result: update,

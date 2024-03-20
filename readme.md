@@ -348,3 +348,49 @@ product
         }
     -sku
     -stock
+Cart and Order
+    --- only customer can create a Cart 
+        ---addto cart// updatecart
+        ---delete from cart(single item delete)
+    -  ---My open cart item
+    --- Checkout ==
+        -- CartItems id
+        -- Order convert
+        -- order list(admin,seller,customer)
+        --history(completed orders)
+--entity
+    --cart detail
+        --buyerId
+        --orderId
+        --productDetail,
+            --productIdm
+            --name,
+            --price,
+            --slug
+        --sellerId,
+        --quantity,
+        --amount
+        
+        --discount
+        --status(draft, cancelled, delivered)
+        --isPaid
+        
+    -- orders
+        -buyerId,
+        -CartItems,
+            -cartId,
+        -subTotal,
+        -discount,
+        -tax,
+        --delivery charge,
+        --service charge(optional)
+        -total
+        -status(pending, delivered, cancelled)
+        -createdAt,
+        -updatedAt
+
+    (if planning to develop)
+    -- reveiws
+    -- transactions-- if ispaid is true then put that in transaction id
+    -- inventory
+    

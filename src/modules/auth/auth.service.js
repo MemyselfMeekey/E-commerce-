@@ -14,6 +14,10 @@ class AuthService{
            
            data.activationToken=token
            const date=new Date()
+
+           if(data.image) {
+            data.image = data.image.filename;
+           }
            
            date.setHours(date.getHours()+3)//current time+3hrs
             data.expiryDate=date

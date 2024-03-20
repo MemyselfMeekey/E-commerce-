@@ -1,6 +1,7 @@
 const catSvc = require("./category.service")
 const AppError = require("../../exception/app.exception")
 const { deleteFile } = require("../../config/helpers")
+const ProSvc = require("../product/product.service")
 
 class CategoryController {
     index = async (req, res, next) => {
@@ -158,10 +159,21 @@ class CategoryController {
                     status:"active"
                 }
             })
+            const filter=ProSvc.setFilters(req.query)
+            filter.search={
+                ...filter.search,
+                categories:{$in:[categoryDetail[0].id]}
+            }
+            const totalCount=await ProSvc.getTotalCount(filter.search)
+            const products=await ProSvc.getDataByFilter({
+                offset:filter.offset,
+                limit:filter.limit,
+                filter:filter.search
+            })
             res.json({
                 result:{
-                    brand:catDetail[0],
-                    product:null
+                    category:catDetail[0],
+                    product:products
                 },
                 message:"data by slug",
                 meta:null

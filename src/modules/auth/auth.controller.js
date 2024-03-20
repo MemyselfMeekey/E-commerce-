@@ -17,7 +17,7 @@ class AuthController{
             const userDetail=await authSvc.getSingleUserByFilter({
                 email:email//email ma bhako user provide gardincha
             })
-            if(!userDetail){
+            if(!userDetail){ 
                 throw new AppError({message:"user doesnot existr",code:400,data:{email:"user doesn't exist"}})
             }
             if(!bcrypt.compareSync(password,userDetail.password)){//(givenpasword, database pass)check
@@ -124,8 +124,8 @@ class AuthController{
         const myEvent= req.myEvent
         myEvent.emit('sendRegisterMail',user)
         res.json({
-            result:myEvent,
-            message:"Result has been sent",
+            result:user,
+            message:"YOu are registered please verify your activation token",
             meta:null
         })
         //  await authSvc.sendRegisterEmail(data)

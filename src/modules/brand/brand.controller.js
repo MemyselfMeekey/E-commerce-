@@ -1,7 +1,7 @@
 const brandSvc = require("./brand.service")
 const AppError = require("../../exception/app.exception")
 const { deleteFile } = require("../../config/helpers")
-
+const ProSvc=require("../product/product.service")
 class BrandController {
     index = async (req, res, next) => {
         try {
@@ -167,10 +167,20 @@ class BrandController {
                     status:"active"
                 }
             })
+            const filter=ProSvc.setFilters(req.query)
+            filter.search={
+                ...filter.search,
+                brand:brandDetail[0]._id
+            }
+             const product=await ProSvc.getDataByFilter({
+                offset:filter.offset,
+                filter:filter.search,
+                limit:filter.limit,
+             })
             res.json({
                 result:{
                     brand:brandDetail[0],
-                    product:null
+                    product:product
                 },
                 message:"data by slug",
                 meta:null

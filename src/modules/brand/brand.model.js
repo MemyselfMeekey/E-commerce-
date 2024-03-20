@@ -35,5 +35,5 @@ const BrandSchema=new mongoose.Schema({
     autoCreate:true,
     autoIndex:true,
 })
-const BrandModel=mongoose.model("brand",BrandSchema)
+const BrandModel=mongoose.model("Brand",BrandSchema)
 module.exports=BrandModel

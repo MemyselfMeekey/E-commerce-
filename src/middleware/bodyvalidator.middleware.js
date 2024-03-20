@@ -6,7 +6,7 @@ const validateBody=(schema)=>{
             if(req.files){
                 let images=[]
                 let fieldName=""
-                Object.keys(req.files).map((fileField)=>{
+                Object.keys(req.files).map((index)=>{
                     // data[fileField]=req.files[fileField]
                     const image=req.files[index]
                     images.push(image)
@@ -14,6 +14,7 @@ const validateBody=(schema)=>{
                 })
                 data[fieldName]=images
             }else if(req.file){
+                
                 data[req.file.fieldname]=req.file
             }
             // console.log({payload:data})
