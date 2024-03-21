@@ -172,6 +172,8 @@ class BrandController {
                 ...filter.search,
                 brand:brandDetail[0]._id
             }
+            
+            const productCount= await ProSvc.getTotalCount(filter.search)
              const product=await ProSvc.getDataByFilter({
                 offset:filter.offset,
                 filter:filter.search,
@@ -183,7 +185,11 @@ class BrandController {
                     product:product
                 },
                 message:"data by slug",
-                meta:null
+                meta:{
+                    limit:filter.limit,
+                    page:filter.page,
+                    total:productCount
+                }
             })
         }
         catch(exception){

@@ -56,6 +56,7 @@ class CategoryController {
     create = async (req, res, next) => {
         try {
             const payload = ProSvc.transformCreateObject(req.body, req.authUser._id)
+            console.log(payload)
             const brand = await ProSvc.createPro(payload)
             res.json({
                 result:{
@@ -199,7 +200,13 @@ class CategoryController {
     dataBySlug=async(req,res,next)=>{
         try{
             const slug=req.params.slug
-            const proDetail=await ProSvc.getDataByFilter({
+            console.log({
+                
+                slug:slug,
+                status:"active"
+            
+        })
+            const proDetail=await ProSvc.getSingleDataByFilter({
                 
                     slug:slug,
                     status:"active"
@@ -209,7 +216,7 @@ class CategoryController {
                 offset:0,
                 limit:5,
                 filter:{
-                    slug:{$ne:slug},
+                    slug:{$ne:slug},//not eqauls to mathi ko slug
                     $or:[
                 {categories:proDetail.categories},
                 {brand:proDetail.brand}
@@ -221,7 +228,7 @@ class CategoryController {
                     realtedProduct:realtedProduct
                 },
                 message:"data by slug",
-                meta:null
+              meta:null
             })
         }
         catch(exception){

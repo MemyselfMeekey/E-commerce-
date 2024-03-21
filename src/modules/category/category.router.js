@@ -1,5 +1,4 @@
 const router=require("express").Router()
-
 const loginCheck=require("../../middleware/auth.middleware")
 const catCtrol=require("./category.controller")
 const checkPermission=require("../../middleware/rbac.middleware")
@@ -18,7 +17,7 @@ router.put("/:id",loginCheck,checkPermission('admin'),pathSet('/uploads/banner')
 router.delete("/:id",loginCheck,checkPermission('admin'),catCtrol.delete)
 
 router.get("/home/list",loginCheck,checkPermission('admin'),catCtrol.listforhome)
-router.get("/:slug/byslug",catCtrol.dataBySlug)
+router.get("/:slug/by-slug",catCtrol.dataBySlug)
 
 
 module.exports=router

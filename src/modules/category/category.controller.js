@@ -162,7 +162,7 @@ class CategoryController {
             const filter=ProSvc.setFilters(req.query)
             filter.search={
                 ...filter.search,
-                categories:{$in:[categoryDetail[0].id]}
+                categories:{$in:[catDetail[0].id]}
             }
             const totalCount=await ProSvc.getTotalCount(filter.search)
             const products=await ProSvc.getDataByFilter({
@@ -176,7 +176,11 @@ class CategoryController {
                     product:products
                 },
                 message:"data by slug",
-                meta:null
+                meta:{
+                    page:filter.page,
+                    limit:filter.limit,
+                    total:totalCount
+                }
             })
         }
         catch(exception){

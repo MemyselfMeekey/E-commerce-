@@ -2,8 +2,7 @@ const validateBody=(schema)=>{
     return async(req,res,next)=>  {
         try{
             const data=req.body
-           
-            if(req.files){
+            if(req.files && req.files.length){
                 let images=[]
                 let fieldName=""
                 Object.keys(req.files).map((index)=>{
@@ -17,7 +16,7 @@ const validateBody=(schema)=>{
                 
                 data[req.file.fieldname]=req.file
             }
-            // console.log({payload:data})
+
             // const response=await schema.validateAsync(data)
             const response=await schema.validateAsync(data,{abortEarly:false})
             // if(response.hasOwnProperty('error')){
@@ -26,7 +25,7 @@ const validateBody=(schema)=>{
         }
         catch(exception){
             let errors={}
-            console.log(exception)
+            // console.log(exception.details)
             exception.details.map((err)=>{
                 errors[err.context.label]=err.message
             })
