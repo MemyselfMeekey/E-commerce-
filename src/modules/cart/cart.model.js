@@ -42,7 +42,7 @@ const CartModelSchema=new mongoose.Schema({
     },
     status:{  
         type:String,
-        enum:["draft","cancelled","delivered"]
+        enum:["draft","confirmed","cancelled","delivered"]
     },
     isPaid:{
         type:Boolean,
