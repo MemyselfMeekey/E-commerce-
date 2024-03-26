@@ -70,6 +70,7 @@ class AuthController{
     getLoggedinUser=(req,res,next)=>{
 
         try{
+            
             const loggedinUser=req.authUser
             res.json({
                 result:{
@@ -272,7 +273,8 @@ class AuthController{
                 await authSvc.sendForgetPassEmail({email:userDetail.email,name:userDetail.name,token:token})
                 res.json({
                     result:updateBody,
-                    message:"Please check your email"
+                    message:"Please check your email",
+                    meta:null
                 })
             }
             else{
@@ -286,7 +288,6 @@ class AuthController{
         
     }
     verifyForgetPasswordToken=async(req,res,next)=>{
-        console.log("This is verifyforgetpasswordtoken")
         try{
             const token=req.params.token
             if(token.length<100){
@@ -303,7 +304,7 @@ class AuthController{
             const tokenExpiryDate=new Date(user.expiryDate).getTime()
 
             if(today>tokenExpiryDate){
-                throw new AppError({message:"token has been already expired for forget-password"})
+                throw new AppError({message:"token has been already expired for forget-password",code:400})
             }
             res.json({
                 result:{
