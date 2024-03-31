@@ -47,7 +47,6 @@ class CategoryController {
     }
     create = async (req, res, next) => {
         try {
-            console.log(req.authUser)
             const payload = catSvc.transformCreateObject(req.body, req.authUser._id)
             const brand = await catSvc.createCat(payload)
         }
@@ -112,7 +111,7 @@ class CategoryController {
             }
             const deletedBrand=await catSvc.deleteById(brand._id)
             if(deletedBrand.image){
-                deleteFile('./public/uploads/brand'+deletedBrand.image)
+                deleteFile('./public/uploads/cat'+deletedBrand.image)
             }
             res.json({
                 result:"",

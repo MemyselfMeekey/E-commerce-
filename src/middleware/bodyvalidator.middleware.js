@@ -2,6 +2,7 @@ const validateBody=(schema)=>{
     return async(req,res,next)=>  {
         try{
             const data=req.body
+            console.log(req.file)
             if(req.files && req.files.length){
                 let images=[]
                 let fieldName=""
@@ -15,6 +16,7 @@ const validateBody=(schema)=>{
             }else if(req.file){
                 
                 data[req.file.fieldname]=req.file
+                
             }
 
             // const response=await schema.validateAsync(data)

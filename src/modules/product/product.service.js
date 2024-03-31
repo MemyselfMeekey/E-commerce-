@@ -42,7 +42,7 @@ class ProService {
         formattedData.createdBy = authUser
 
 
-        console.log("Data: ", formattedData)
+      
         return formattedData
     }
 
@@ -187,9 +187,7 @@ class ProService {
                 ...filter.search,
                 $or: [
                     { name: new RegExp(req.query.search, 'i') },
-                    { description: new RegExp(req.query.search, 'i') },
-                    { price: new RegExp(req.query.search, 'i') },
-                    { status: new RegExp(req.query.search, 'i') }
+                   
                 ]
             }
 

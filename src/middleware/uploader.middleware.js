@@ -29,6 +29,7 @@ const pathSet=(dirPath)=>{
 }
 const imageFilter=(req,file,cb)=>{
     const ext=file.originalname.split(".").pop()
+    // console.log(req.file)
     const allowedExt=['jpg','jpeg','png','svg','bmp','webp','gif']
     if(allowedExt.includes(ext.toLowerCase())){
         cb(null,true)

@@ -1,5 +1,6 @@
 const AppError = require("../../exception/app.exception")
-const BrandModel= require("./category.model")
+const CatModel = require("./category.model")
+const CatModel= require("./category.model")
 const slugify=require("slugify")
 class CategoryService{
     transformCreateObject=(data, authUserId)=>{
@@ -35,7 +36,7 @@ class CategoryService{
     }
     createCat=async(data)=>{
         try{
-            const brand=new BrandModel(data)
+            const brand=new CatModel(data)
             return await brand.save()
         }
         catch(exception){
@@ -44,7 +45,7 @@ class CategoryService{
     }
     getTotalCount=async(filter)=>{
         try{
-            const count=await BrandModel.countDocuments(filter)
+            const count=await CatModel.countDocuments(filter)
             return count
         }
         catch(exception){
@@ -53,7 +54,7 @@ class CategoryService{
     }
     getDataById=async(id)=>{
         try{
-            const data=await BrandModel.findById(id)
+            const data=await CatModel.findById(id)
             .populate('createdBy',['_id','name','email'])
             .populate('parentId',['_id',"name",'slug'])
             return data
@@ -66,7 +67,7 @@ class CategoryService{
 
     getDataByFilter=async({offset,filter,limit})=>{
         try{
-            const data=await BrandModel.find(filter)
+            const data=await CatModel.find(filter)
             .populate('createdBy',['_id','name','email'])//user table column
             .sort({'_id':"desc"})
             .skip(offset)
@@ -79,7 +80,7 @@ class CategoryService{
     }
     updateData=async(id,data)=>{
         try{
-            const update=await BrandModel.findByIdAndUpdate(id,{
+            const update=await CatModel.findByIdAndUpdate(id,{
                 $set:data
             })
             return update
@@ -90,7 +91,7 @@ class CategoryService{
     }
     deleteById=async(id)=>{
         try{
-            const deleteBrand=await BrandModel.findByIdAndDelete(id)
+            const deleteBrand=await CatModel.findByIdAndDelete(id)
             if(!deleteBrand){
                 throw new AppError({message:"Brand doesnot exists",code:400})
             }

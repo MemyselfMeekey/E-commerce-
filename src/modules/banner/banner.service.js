@@ -34,6 +34,7 @@ class BannerService{
     }
     getTotalCount=async(filter)=>{
         try{
+            
             const count=await bannerModel.countDocuments(filter)
             return count
         }
