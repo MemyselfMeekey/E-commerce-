@@ -4,12 +4,13 @@ const checkPermission=(role)=>{
     return (req,res,next)=>{
         // const user=({role:"admin"})
         const user=req.authUser
+        console.log(req.authUser)
         // console.log(role)
         // console.log(user) make a new admin role user and di
         if(
             (typeof role==='string' && role===user.role)
                 ||
-            (Array.isArray(role)&&role.includes(user.role))
+            (Array.isArray(role) && role.includes(user.role))
             ){
             next()
         }

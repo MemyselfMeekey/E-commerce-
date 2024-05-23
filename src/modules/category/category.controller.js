@@ -33,7 +33,7 @@ class CategoryController {
             const data = await catSvc.getDataByFilter({ offset, filter, limit })
             res.json({
                 result: data,
-                message: "brander Fetched",
+                message: "Category Fetched",
                 meta: {
                     page: page,
                     limit: limit,

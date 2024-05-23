@@ -16,6 +16,7 @@
 }
 
 const deleteFile=(path)=>{
+    console.log("Hi in deleteFile")
     if(fs.existsSync(+path)){
         fs.unlinkSync(path)
     }

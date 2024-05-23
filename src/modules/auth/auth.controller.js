@@ -56,6 +56,7 @@ class AuthController{
                 result:{
                     accessToken:accessToken,
                     refreshToken:refreshToken,
+                    userDetail:userDetail
                     
                 },
                 message:"Welcome to application",
@@ -113,6 +114,7 @@ class AuthController{
     register=async (req,res,next)=>{
     try{
         //params,query,body
+        console.log("This is register")
         const data=authSvc.transformRegisterData(req.body)
         //    const timestamp=Date.now()//number=1979-01-01
         //    timestamp+=3*60*60*1000
@@ -346,8 +348,8 @@ class AuthController{
                 expiryDate:null
             })
            res.json({
-            result:"Password changed successfully",
-            data:null,
+            result:null,
+            message:"Password renewwed succesfully",
             meta:null
            })
         }

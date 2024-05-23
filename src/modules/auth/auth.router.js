@@ -13,7 +13,7 @@ const validatebody=require("../../middleware/bodyvalidator.middleware")
 router.post("/register",pathSet("/uploads/user"),uploader.single("image"), validatebody(registerSchema), authCtrl.register);
 router.get("/verify-token/:token",authCtrl.verifyRegisterToken)
 router.post("/resend-token",validatebody(resendToken),authCtrl.resendActivationToken)
-router.get("/activate/:token",validatebody(passwordSetSchema),authCtrl.activateUser)
+router.post("/activate/:token",validatebody(passwordSetSchema),authCtrl.activateUser)
 
 //http://localhost:3005/apiv1/auth/login
 router.post("/login",validatebody(loginDto),authCtrl.login)

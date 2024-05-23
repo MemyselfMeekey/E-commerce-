@@ -25,7 +25,7 @@ class banController {
                 }
 
             }
-            console.log("filter",filter)
+      
             //pagination
             //1-100
             //per page 15=>1st page=>1-15
@@ -52,6 +52,11 @@ class banController {
           
             const payload = bannerSvc.transformCreateObject(req.body, req.authUser._id)
             const banner = await bannerSvc.createBanner(payload)
+            res.json({
+                result:banner,
+                message:"Banner created",
+                meta:null
+            })
         }
         catch (exception) {
             console.log(exception)

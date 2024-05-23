@@ -14,15 +14,16 @@ class UserController {
             if (user) {
                 const myEvent = req.myEvent
                 myEvent.emit('sendRegisterMail', user)
-                res.json({
-                    result: user,
-                    message: "Your user account has been created succesfulyy",
-                    meta: null
-                })
+              
             }
             else {
                 throw new AppError({ message: "this couldnot be executed" })
             }
+            res.json({
+                result: user,
+                message: "Your user account has been created succesfulyy",
+                meta: null
+            })
         }
         catch (exception) {
             console.log(exception)
@@ -53,13 +54,14 @@ class UserController {
                     deletedBy: { $eq: null },
                     $or: [
                         { name: new RegExp(req.query.search, 'i') },
-                        { status: new RegExp(req.query.search, 'i') }
+                        { status: new RegExp(req.query.search, 'i') },
+                        { role: new RegExp(req.query.search, 'i') },
                     ]
                 }
             }
-            console.log(filter)
+       
             const count = await userSvc.getCount(filter)
-            const userList = await userSvc.listUserByfilter(filter, offset, limit)
+            const userList = await userSvc.listUserByfilter({filter, offset, limit})
             res.json({
                 result: userList,
                 message: "User list",
@@ -125,7 +127,7 @@ class UserController {
             })
             res.json({
                 result: userDetail,
-                message: "This is user detail",
+                message: "Soft delete successfull",
                 meta: null
             })
         }

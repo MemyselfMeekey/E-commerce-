@@ -13,6 +13,7 @@ class AuthService{
            const token= generateRandomString()
            
            data.activationToken=token
+           data.image=data.image?data.image.filename:null
            const date=new Date()
 
            if(data.image) {
@@ -35,7 +36,7 @@ class AuthService{
                 html:`
                 Dear <b> ${user.name}</b>,</br>
                 <p>Your account has been registered successfully. Please click the link below to activate your account or copy psatethe url</p>
-                <a href="${process.env.FRONTEND_URL}activate/${user.activationToken}">${process.env.FRONTEND_URL}</a><br>
+                <a href="${process.env.FRONTEND_URL}activate/${user.activationToken}">${process.env.FRONTEND_URL}${user.activationToken}</a><br>
                 <b> Regards</b>
                 `,
                 text:`
@@ -58,9 +59,8 @@ class AuthService{
                 html:`
                 Dear <b> ${name}</b>,</br>
                 <p>You have requesten for the password change.</p><br>
-                <p>if this is your request please click the link below, or ignore the request</p>
-                <p>Your account has been registered successfully. Please click the link below to activate your account or copy psatethe url</p>
-                <a href="${process.env.FRONTEND_URL}chaneg-password/${token}/verify">${process.env.FRONTEND_URL}chaneg-password/${token}/verify
+                <p>Please click the link below to reset your password</p>
+                <a href="${process.env.FRONTEND_URL}forgetpassword/${token}/verify">${process.env.FRONTEND_URL}forgetpassword/${token}/verify
                 </a><br>
                 <p>Your link is activated only for 2 hours</p>
                 <b> Regards</b>

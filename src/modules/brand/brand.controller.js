@@ -98,6 +98,7 @@ class BrandController {
                 throw new AppError({ message: "brand cannot update", code: 400 })
             }
             if(updatedData.image!==payload.image){
+                console.log(updatedData.image)
                 //delete from server old image
                 deleteFile('./public/uploads/brand/'+updatedData.image)
             }
@@ -108,6 +109,7 @@ class BrandController {
             })
         }
         catch (exception) {
+            console.log(" i AM HERE update")
             console.log(exception)
             next(exception)
         }

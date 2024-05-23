@@ -1,18 +1,21 @@
 const express=require('express')//es5 module
 require("./db.config")
-const app=express()
+
 const router=require("../routes/router")
 const myEvent=require("../events/event.config")
 const { MongooseError } = require('mongoose')
-
+const cors=require("cors")
+const app=express()
+app.use(cors())
 
 app.use((req,res,next)=>{
     req.myEvent= myEvent
     next()
 })
 
+//used in frontend
 app.use("/images",express.static('./public/uploads'))
-app.use("/users",express.static('./public/uploads/user'))
+// app.use("/users",express.static('./public/uploads/user'))
 
 // body parser
 app.use(express.json())//json body phrases

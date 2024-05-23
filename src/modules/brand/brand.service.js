@@ -3,7 +3,7 @@ const BrandModel= require("./brand.model")
 const slugify=require("slugify")
 class BrandService{
     transformCreateObject=(data, authUserId)=>{
-        
+       try{ 
         const formattedData={
             ...data
         }
@@ -18,10 +18,16 @@ class BrandService{
         formattedData.createdBy=authUserId
         return formattedData
     }
+    catch(exception){
+        throw exception
+    }
+    }
     transformUpdateObject=(data,oldBrand,authUserId)=>{
+        try{
         let formattedData={
             ...data
         }
+        console.log("oldBrand",oldBrand)
         if(data.image){
             formattedData.image=data.image.filename
         }
@@ -29,7 +35,13 @@ class BrandService{
             formattedData.image=oldBrand.image
         }
         formattedData.updatedBy=authUserId
+        console.log("new data", formattedData)
         return formattedData
+    }
+    catch(exception){
+        console.log("I am here TUO")
+        throw exception
+    }
     }
     createBrand=async(data)=>{
         try{
@@ -56,6 +68,7 @@ class BrandService{
             return data
         }
         catch(exception){
+            console.log("I am here get data by id")
             throw exception
         }
     }
@@ -82,6 +95,7 @@ class BrandService{
             return update
         }
         catch(exception){
+            console.log("I am here in updateDaata")
             throw exception
         }
     }

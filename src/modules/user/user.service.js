@@ -15,8 +15,11 @@ class UserService{
             throw exception
         }
     }
-    listUserByfilter=async(filter,offset,limit)=>{
+    listUserByfilter=async({filter,offset,limit})=>{
         try{
+            console.log("filter",filter)
+            console.log("offset",offset)
+            console.log("limit",limit)
             const userList=await UserModel.find(filter,{password:0})
         .sort({_id:-1})
         .skip(offset)

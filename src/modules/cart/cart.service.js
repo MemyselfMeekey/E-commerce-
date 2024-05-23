@@ -1,4 +1,4 @@
-const CartModel = require("./cart.model")
+const CartModel=require("./cart.model")
 const OrderModel = require("./order.model")
 
 class CartService {
@@ -21,7 +21,6 @@ class CartService {
         return cartObject
     }
     createCartItem = async (data) => {
-        try {
             const cartObj = new CartModel(data)
             return await cartObj.save()
         }
@@ -141,6 +140,6 @@ class CartService {
             throw exception
         }
     }
-}
+
 const cartSvc = new CartService()
 module.exports = cartSvc

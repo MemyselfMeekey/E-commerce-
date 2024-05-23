@@ -15,7 +15,7 @@ const userCreateDto = Joi.object({
             stnName: Joi.string().allow(null,'')
         }),
         billingAddress:Joi.object ({
-            state: String,
+            state: Joi.string(),
             district: Joi.string().allow(null,''),
             localDevCom: Joi.string().allow(null,''),
             wardNo: Joi.number().allow(null,''),

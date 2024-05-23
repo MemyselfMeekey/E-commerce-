@@ -36,7 +36,7 @@ const loginCheck=async(req,res,next)=>{
     else{
         throw new AppError({message:"User already logged Out",code:401})
     }
-    console.log(req.authUser)
+   
 }
    catch(exception){
     console.log(exception)

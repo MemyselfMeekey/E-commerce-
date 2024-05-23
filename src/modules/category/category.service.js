@@ -1,6 +1,5 @@
 const AppError = require("../../exception/app.exception")
 const CatModel = require("./category.model")
-const CatModel= require("./category.model")
 const slugify=require("slugify")
 class CategoryService{
     transformCreateObject=(data, authUserId)=>{
@@ -21,7 +20,7 @@ class CategoryService{
         formattedData.createdBy=authUserId
         return formattedData
     }
-    transformUpdateObject=(data,oldBanner,authUserId)=>{
+    transformUpdateObject=(data,oldCategory,authUserId)=>{
         let formattedData={
             ...data
         }
@@ -29,15 +28,15 @@ class CategoryService{
             formattedData.image=data.image.filename
         }
         else{
-            formattedData.image=oldBrand.image
+            formattedData.image=oldCategory.image
         }
         formattedData.updatedBy=authUserId
         return formattedData
     }
     createCat=async(data)=>{
         try{
-            const brand=new CatModel(data)
-            return await brand.save()
+            const Category=new CatModel(data)
+            return await Category.save()
         }
         catch(exception){
             throw exception
@@ -91,13 +90,14 @@ class CategoryService{
     }
     deleteById=async(id)=>{
         try{
-            const deleteBrand=await CatModel.findByIdAndDelete(id)
-            if(!deleteBrand){
-                throw new AppError({message:"Brand doesnot exists",code:400})
+            const deleteCategory=await CatModel.findByIdAndDelete(id)
+            if(!deleteCategory){
+                throw new AppError({message:"Category doesnot exists",code:400})
             }
-            return deleteBrand
+            return deleteCategory
         }
         catch(exception){
+          
             throw exception
         }
     }

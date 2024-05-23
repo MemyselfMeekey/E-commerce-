@@ -82,6 +82,7 @@ class ProService {
     }
     createPro = async (data) => {
         try {
+            console.log(data)
             const pro = new ProModel(data)
             return await pro.save()
         }

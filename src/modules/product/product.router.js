@@ -17,7 +17,7 @@ router.get("/:id",loginCheck,checkPermission('admin'),productCtrol.view)
 router.put("/:id",loginCheck,checkPermission('admin'),pathSet('/uploads/product'),uploader.array('images'),validateBody(ProUpdateDto),productCtrol.update)
 router.delete("/:id",loginCheck,checkPermission('admin'),productCtrol.delete)
 
-router.get("/home/list",loginCheck,checkPermission('admin'),productCtrol.listforhome)
+router.get("/home/list",productCtrol.listforhome)
 router.get("/:slug/byslug",productCtrol.dataBySlug)
 
 

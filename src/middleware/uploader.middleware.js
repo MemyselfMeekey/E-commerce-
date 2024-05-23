@@ -17,20 +17,24 @@ const myStorage= multer.diskStorage({//where to store files and upload them
     }
 })
 const pathSet=(dirPath)=>{
+  
     return(req,res,next)=>{
         const path='./public'+dirPath
         //path=>public/uploads/user
         if(!fs.existsSync(path)){
             fs.mkdirSync(path,{recursive:true})
         }
+      
         req.uploadPath=path
         next()
     }
 }
 const imageFilter=(req,file,cb)=>{
+    console.log(file.originalname)
     const ext=file.originalname.split(".").pop()
     // console.log(req.file)
     const allowedExt=['jpg','jpeg','png','svg','bmp','webp','gif']
+    console.log("file format extension",ext)
     if(allowedExt.includes(ext.toLowerCase())){
         cb(null,true)
     } 

@@ -56,7 +56,7 @@ class CategoryController {
     create = async (req, res, next) => {
         try {
             const payload = ProSvc.transformCreateObject(req.body, req.authUser._id)
-            console.log(payload)
+           
             const brand = await ProSvc.createPro(payload)
             res.json({
                 result:{
@@ -100,7 +100,7 @@ class CategoryController {
             if (!product) {
                 throw new AppError({ message: "product Doesnot exist", code: 400 })
             }
-            const payload = ProSvc.transformUpdateObject(req.body, product, req.authUser._id)
+            const payload = await ProSvc.transformUpdateObject(req.body, product, req.authUser._id)
             const updatedData = await ProSvc.updateData(product._id, payload)
             if (!updatedData) {
                 throw new AppError({ message: "product cannot update", code: 400 })
@@ -169,12 +169,11 @@ class CategoryController {
                 }
 
             }
-            if(req.authUser.role==='seller'){
+           
                 filter={
-                    ...filter,
-                    seller:req.authUser._id
+                    ...filter
                 }
-            }
+            
             //pagination
             //1-100
             //per page 15=>1st page=>1-15

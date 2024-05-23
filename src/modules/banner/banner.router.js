@@ -16,7 +16,7 @@ router.get("/:id",loginCheck,checkPermission('admin'),banCtrol.view)
 router.put("/:id",loginCheck,checkPermission('admin'),pathSet('/uploads/banner'),uploader.single('image'),validateBody(BannerUpdateDto),banCtrol.update)
 router.delete("/:id",loginCheck,checkPermission('admin'),banCtrol.delete)
 
-router.get("/home/list",loginCheck,checkPermission('admin'),banCtrol.listforhome)
+router.get("/home/list",banCtrol.listforhome)
 
 
 module.exports=router
